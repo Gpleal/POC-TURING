@@ -26,11 +26,3 @@
   "@types/node": "^20.12.12"
   }
 }
-
-cd C:\POC-Turing\teste-turing-dash
-git init
-git config --global user.name "Seu Nome"
-git config --global user.email "seu-email@exemplo.com"
-git add .
-git commit -m "init: POC-TURING monorepo (web-next + server + shared)"
-git branch -M main
