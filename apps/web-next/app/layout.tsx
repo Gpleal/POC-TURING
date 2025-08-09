@@ -28,8 +28,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body className="font-sans bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 antialiased">
-        <ThemeScript />
-  <AppFrame>{children}</AppFrame>
+  <ThemeScript />
+  <AppFrame>{children as any}</AppFrame>
       </body>
     </html>
   )

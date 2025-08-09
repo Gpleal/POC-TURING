@@ -5,7 +5,9 @@ import { Sidebar } from './Sidebar'
 import { Menu } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 
-export function AppFrame({ children }: { children: React.ReactNode }) {
+type Children = React.ReactNode | undefined
+export type AppFrameProps = { children?: Children }
+export function AppFrame({ children }: AppFrameProps) {
   const [open, setOpen] = useState(false)
   return (
     <div className="min-h-dvh grid grid-cols-1 md:grid-cols-[16rem_1fr]">
