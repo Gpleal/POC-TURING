@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Agent {
+  id          String  @id @default(cuid())
+  slug        String  @unique
+  name        String
+  kind        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  // JSON fields
+  inputsSchema Json?
+  outputSchema Json?
+  workflow     Json
+
+  logs         ExecutionLog[]
+}
+
+model ExecutionLog {
+  id        String   @id @default(cuid())
+  agentId   String
+  agent     Agent    @relation(fields: [agentId], references: [id])
+  status    String
+  input     Json
+  output    Json?
+  createdAt DateTime @default(now())
+}

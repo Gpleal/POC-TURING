@@ -1,0 +1,75 @@
+// SQLite default (can switch to PostgreSQL via env)
+// datasource db { provider = "postgresql" url = env("DATABASE_URL") }
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum AgentType {
+  SCHEDULER
+  REMINDER
+  BILLING
+  INVOICE_ISSUER
+  EMAIL_CLASSIFIER
+  AUTO_REPLY
+  CV_SCREENING
+  STOCK_CONTROL
+  DOC_DISPATCH
+  FIN_REPORTS
+  PAYMENT_RECON
+}
+
+enum AgentStatus {
+  draft
+  active
+  paused
+  archived
+}
+
+enum RunStatus {
+  queued
+  running
+  success
+  failed
+  cancelled
+}
+
+model Agent {
+  id           String       @id @default(cuid())
+  name         String
+  slug         String       @unique
+  type         AgentType
+  status       AgentStatus
+  description  String?
+  config       Json
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  runs         TaskRun[]
+}
+
+model TaskRun {
+  id         String     @id @default(cuid())
+  agentId    String
+  status     RunStatus
+  input      Json
+  output     Json?
+  error      String?
+  cost       Decimal?
+  startedAt  DateTime?
+  endedAt    DateTime?
+  agent      Agent      @relation(fields: [agentId], references: [id])
+}
+
+model IntegrationAccount {
+  id        String   @id @default(cuid())
+  kind      String
+  label     String?
+  oauthJson Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

@@ -1,0 +1,36 @@
+{
+  "name": "chat-all-in-agents",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+  "dev": "npm-run-all -p web-next:dev api:dev",
+  "dev:lan": "npm-run-all -p web-next:dev:lan api:dev",
+    "web:dev": "echo 'apps/web disabled'; exit 0",
+  "web-next:dev": "npm -w apps/web-next run dev",
+  "web-next:dev:lan": "npm -w apps/web-next run dev -- -H 0.0.0.0",
+    "api:dev": "npm -w apps/server run dev",
+    "build": "npm-run-all -p web-next:build api:build",
+    "web:build": "echo 'apps/web disabled'; exit 0",
+    "web-next:build": "npm -w apps/web-next run build",
+    "api:build": "npm -w apps/server run build",
+    "web-next:seed": "npm -w apps/web-next run seed",
+    "prisma:generate": "npm -w apps/server run prisma:generate",
+    "prisma:push": "npm -w apps/server run prisma:push",
+    "seed": "npm -w apps/server run seed",
+    "git:version": "git --version",
+    "gh:version": "gh --version"
+  },
+  "devDependencies": {
+  "npm-run-all": "^4.1.5",
+  "@types/node": "^20.12.12"
+  }
+}
+
+cd C:\POC-Turing\teste-turing-dash
+git init
+git config --global user.name "Seu Nome"
+git config --global user.email "seu-email@exemplo.com"
+git add .
+git commit -m "init: POC-TURING monorepo (web-next + server + shared)"
+git branch -M main
